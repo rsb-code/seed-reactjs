@@ -13,15 +13,15 @@ export default function Table(props) {
 					<thead>
 						<tr>
 							{headers.map((e, i) => (
-								<th>e</th>
+								<th>{e}</th>
 							))}
 						</tr>
 					</thead>
 					<tbody>
 						{data.map((e, i) => (
 							<tr>
-								<td style={{ width: '45px' }}>{e.id}</td>
-								<td>{e.title}</td>
+								<td>{e.id}</td>
+								<td>{e.titulo}</td>
 								<td style={{ width: '45px' }}>
 									<a href={`noticia/${e.id}`}>
 										<FontAwesomeIcon icon={faSearchPlus} />

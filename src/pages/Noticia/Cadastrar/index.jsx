@@ -15,22 +15,29 @@ import { validation } from './validationSchema';
 export default function NoticiaCadastrarPage(props) {
 	const { mostrarToast } = useToast();
 	const [model, setmodel] = useState({
-		title: undefined,
-		body: undefined,
+		titulo: undefined,
+		texto: undefined,
+		autorId: 'B64852FB-2656-4756-85D6-EB07788A0072',
 	});
 
 	function post(obj) {
-		console.log(obj);
 		const service = new NoticiasService(props);
 
 		service
 			.post(obj)
 			.then(function(e) {
 				mostrarToast(toastEnum.SUCCESS, 'Notícia cadastrada com sucesso.');
+
+				setTimeout(() => {
+					props.history.push('/');
+				}, 500);
 			})
 			.catch(function(error) {
-				console.warn(error);
-				mostrarToast(toastEnum.ERROR, 'Erro ao cadastrar a notícia.');
+				console.log(JSON.stringify(error));
+				mostrarToast(
+					toastEnum.ERROR,
+					'Ops! Ocorreu um erro durante a tentativa de salvar uma notícia.',
+				);
 			});
 	}
 
@@ -53,34 +60,34 @@ export default function NoticiaCadastrarPage(props) {
 					<>
 						<Form
 							noValidate
-							validated={errors.title || errors.body}
+							validated={errors.titulo || errors.texto}
 							onSubmit={handleSubmit}
 						>
 							<Row>
 								<Field
 									md={12}
 									required
-									name="title"
+									name="titulo"
 									label="Título"
 									type="text"
 									placeholder="Título"
 									component={Input}
-									value={values.title}
-									onChange={o => setFieldValue('title', o.target.value)}
+									value={values.titulo}
+									onChange={o => setFieldValue('titulo', o.target.value)}
 								/>
 							</Row>
 							<Row>
 								<Field
 									md={12}
 									required
-									name="body"
+									name="texto"
 									label="Conteúdo"
 									as="textarea"
 									rows={3}
 									placeholder="conteúdo"
 									component={Input}
-									value={values.body}
-									onChange={o => setFieldValue('body', o.target.value)}
+									value={values.texto}
+									onChange={o => setFieldValue('texto', o.target.value)}
 								/>
 							</Row>
 

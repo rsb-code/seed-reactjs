@@ -16,8 +16,9 @@ export default function NoticiaEditarPage(props) {
 	const { mostrarToast } = useToast();
 	const [model, setmodel] = useState({
 		id: undefined,
-		title: undefined,
-		body: undefined,
+		titulo: undefined,
+		texto: undefined,
+		autorId: 'B64852FB-2656-4756-85D6-EB07788A0072',
 	});
 
 	useEffect(function() {
@@ -27,7 +28,7 @@ export default function NoticiaEditarPage(props) {
 	function getItem() {
 		const service = new NoticiasService(props);
 		service
-			.get(props.match.params.id)
+			.getPost(props.match.params.id)
 			.then(function(e) {
 				setmodel(e.data);
 			})
@@ -42,10 +43,17 @@ export default function NoticiaEditarPage(props) {
 		service
 			.put(obj)
 			.then(function(e) {
-				mostrarToast(toastEnum.SUCCESS, 'Notícia cadastrada com sucesso.');
+				mostrarToast(toastEnum.SUCCESS, 'Notícia editada com sucesso.');
+				setTimeout(() => {
+					props.history.push('/');
+				}, 500);
 			})
 			.catch(function(error) {
-				mostrarToast(toastEnum.ERROR, 'Erro ao cadastrar a notícia.');
+				console.log(JSON.stringify(error));
+				mostrarToast(
+					toastEnum.ERROR,
+					'Ops! Ocorreu um erro durante a tentativa de editar uma notícia.',
+				);
 			});
 	}
 
@@ -56,6 +64,10 @@ export default function NoticiaEditarPage(props) {
 			.delete(id)
 			.then(function(e) {
 				mostrarToast(toastEnum.SUCCESS, 'Notícia deletada com sucesso.');
+
+				setTimeout(() => {
+					props.history.push('/');
+				}, 500);
 			})
 			.catch(function(error) {
 				mostrarToast(toastEnum.ERROR, 'Erro ao tentar excluir a notícia.');
@@ -81,34 +93,34 @@ export default function NoticiaEditarPage(props) {
 					<>
 						<Form
 							noValidate
-							validated={errors.title || errors.body}
+							validated={errors.titulo || errors.texto}
 							onSubmit={handleSubmit}
 						>
 							<Row>
 								<Field
 									md={12}
 									required
-									name="title"
+									name="titulo"
 									label="Título"
 									type="text"
 									placeholder="Título"
 									component={Input}
-									value={values.title}
-									onChange={o => setFieldValue('title', o.target.value)}
+									value={values.titulo}
+									onChange={o => setFieldValue('titulo', o.target.value)}
 								/>
 							</Row>
 							<Row>
 								<Field
 									md={12}
 									required
-									name="body"
+									name="texto"
 									label="Conteúdo"
 									as="textarea"
 									rows={3}
 									placeholder="conteúdo"
 									component={Input}
-									value={values.body}
-									onChange={o => setFieldValue('body', o.target.value)}
+									value={values.texto}
+									onChange={o => setFieldValue('texto', o.target.value)}
 								/>
 							</Row>
 

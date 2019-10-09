@@ -9,15 +9,19 @@ export default function NoticiaListarPage(props) {
 	const [list, setlist] = useState({});
 	const { mostrarToast } = useToast();
 
+	useEffect(() => {
+		getItens();
+	}, []);
+
 	function getItens() {
 		const service = new NoticiasService(props);
 
 		service
 			.get()
 			.then(function(e) {
-				setlist(e);
+				setlist(e.data);
 			})
-			.cathc(function(error) {
+			.catch(function(error) {
 				mostrarToast(toastEnum.ERROR, 'Erro ao tentar obter a listagem.');
 			});
 	}
@@ -30,8 +34,8 @@ export default function NoticiaListarPage(props) {
 					<a href={'/noticia'}>Cadastrar</a>
 				</div>
 			</h1>
-
-			<Table headers={['', 'Titulo', '']} data={list} />
+			{console.log(list)}
+			<Table headers={['id', 'Titulo', '']} data={list} />
 		</>
 	);
 }

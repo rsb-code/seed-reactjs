@@ -6,7 +6,7 @@ export default {
 	currentEnvironment: 'dev',
 	baseUrl: {
 		dev: {
-			urlApi: '[URL DA API EM DEV]',
+			urlApi: 'http://puc-minicurso.azurewebsites.net/',
 		},
 		homolog: {
 			urlApi: '[URL DA API EM HML]',
