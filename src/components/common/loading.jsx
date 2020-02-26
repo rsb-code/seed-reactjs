@@ -1,6 +1,6 @@
 import React from 'react';
 
-import logo from 'assets/images/marca.png';
+import logo from '../../assets/images/marca.png';
 
 const Loading = () => {
 	return (

@@ -3,17 +3,16 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 import Routes from './pages/_config/routes';
-import { ToastProvider } from './utils/hooks/useToast';
+// import { ToastProvider } from './utils/hooks/useToast';
 import * as serviceWorker from './service-worker';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './global.css';
+import './assets/styles/base/global.css';
 
 ReactDOM.render(
 	<BrowserRouter>
-		<ToastProvider>
+		{/* <ToastProvider> */}
 			<Routes />
-		</ToastProvider>
+		{/* </ToastProvider> */}
 	</BrowserRouter>,
 	document.getElementById('root'),
 );
